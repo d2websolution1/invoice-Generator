@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, isAuthenticated } from "../../services/authService";
+import { API_BASE_URL } from "../../services/api";
 import { 
     FaFileInvoice, 
     FaEnvelope, 
@@ -55,12 +56,12 @@ const Login = () => {
                 toast.error(res.message || "Authentication failed.");
             }
         } catch (error) {
-            console.error("Login Error:", error);
+            console.error("Login Error details:", error, "API_BASE_URL:", API_BASE_URL);
             let errMsg = "Login failed. Please verify your credentials.";
             if (error.response?.data?.message) {
                 errMsg = error.response.data.message;
             } else if (error.message === "Network Error" || !error.response) {
-                errMsg = "Cannot connect to Backend API. Please check your backend URL configuration.";
+                errMsg = `Backend connectivity issue. If Render is waking up, please wait a few seconds and try again.`;
             }
             toast.error(errMsg);
         } finally {
@@ -191,10 +192,14 @@ const Login = () => {
                 </form>
 
                 {/* Premium layout footer */}
-                <div className="text-center mt-6 border-t border-slate-800/80 pt-4">
+                <div className="text-center mt-6 border-t border-slate-800/80 pt-4 space-y-1.5">
                     <p className="text-[9px] text-slate-500 uppercase tracking-widest font-semibold">
                         Secured session protocol • Authorized admins only
                     </p>
+                    <div className="flex items-center justify-center gap-1.5 text-[9px] text-emerald-400/90 font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Cloud Backend: Render Live</span>
+                    </div>
                 </div>
 
             </div>
