@@ -56,7 +56,12 @@ const Login = () => {
             }
         } catch (error) {
             console.error("Login Error:", error);
-            const errMsg = error.response?.data?.message || "Login failed. Please verify your credentials.";
+            let errMsg = "Login failed. Please verify your credentials.";
+            if (error.response?.data?.message) {
+                errMsg = error.response.data.message;
+            } else if (error.message === "Network Error" || !error.response) {
+                errMsg = "Cannot connect to Backend API. Please check your backend URL configuration.";
+            }
             toast.error(errMsg);
         } finally {
             setSubmitting(false);
