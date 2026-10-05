@@ -2,7 +2,16 @@ import axios from "axios";
 
 // Base API URL configuration
 export const LIVE_BACKEND_URL = "https://invoice-generator-backend-sa53.onrender.com";
-export const API_BASE_URL = import.meta.env.VITE_API_URL || `${LIVE_BACKEND_URL}/api`;
+
+const resolveApiBaseUrl = () => {
+    let raw = (import.meta.env.VITE_API_URL || `${LIVE_BACKEND_URL}/api`).trim().replace(/\/+$/, "");
+    if (!raw.endsWith("/api")) {
+        raw = `${raw}/api`;
+    }
+    return raw;
+};
+
+export const API_BASE_URL = resolveApiBaseUrl();
 
 const api = axios.create({
     baseURL: API_BASE_URL
