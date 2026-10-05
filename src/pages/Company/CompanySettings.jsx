@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { getCompany, createCompany, updateCompany } from "../../services/companyService";
 
 // Helper to resolve static file paths from the backend server
-const SERVER_BASE_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:5000";
+const SERVER_BASE_URL = import.meta.env.VITE_SERVER_URL || "https://invoice-generator-backend-sa53.onrender.com";
 const getImageUrl = (path) => {
     if (!path) return null;
     if (path.startsWith("http://") || path.startsWith("https://")) return path;

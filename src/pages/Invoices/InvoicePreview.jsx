@@ -97,7 +97,8 @@ const InvoicePreview = () => {
         if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("data:")) {
             return path;
         }
-        const baseUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:5000";
+        const cleanPath = path.replace(/\\/g, "/").replace(/^\/+/, "");
+        const baseUrl = import.meta.env.VITE_SERVER_URL || "https://invoice-generator-backend-sa53.onrender.com";
         return `${baseUrl}/${cleanPath}`;
     };
 
